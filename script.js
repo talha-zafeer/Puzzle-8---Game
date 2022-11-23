@@ -52,6 +52,7 @@ function init() {
 
   newGame.addEventListener("click", () => {
     localStorage.clear();
+    resetMoves();
     resetRounds();
     startGame();
   });
