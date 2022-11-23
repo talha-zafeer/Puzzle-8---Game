@@ -52,6 +52,7 @@ function init() {
 
   newGame.addEventListener("click", () => {
     localStorage.clear();
+    resetRounds();
     startGame();
   });
 }
@@ -114,7 +115,7 @@ function setSiblings() {
 }
 
 const startGame = () => {
-  grid = [1, 2, 3, 4, 5, 6, 7, "", 8];
+  grid = getRandomArray();
   resetTimer();
   startTimer();
   populateGrid();
@@ -239,9 +240,14 @@ const resetMoves = () => {
 };
 
 //Count Rounds
-
 const countRounds = () => {
   currentRound += 1;
+  roundsSelector.innerHTML = currentRound;
+};
+
+//Reset Rounds
+const resetRounds = () => {
+  currentRound = 1;
   roundsSelector.innerHTML = currentRound;
 };
 //Checks if the puzzle is completed
@@ -318,23 +324,32 @@ function stopWatch() {
 //Show Scoreboard
 btnScore.onclick = function () {
   let tbody = document.getElementById("rounds-info");
-
   tbody.innerText = "";
-  for (let i = 0; i < localStorage.length; i++) {
-    let data = JSON.parse(localStorage.getItem(`Round ${i + 1}`));
-    let tr = "<tr>";
-    tr +=
-      "<td> Round  " +
-      data.round +
-      "</td>" +
-      "<td> Moves  " +
-      data.moves +
-      "</td> <td> Time  (" +
-      data.time +
-      ")</td></tr>";
-    tbody.innerHTML += tr;
+
+  if (localStorage.length <= 0) {
+    tbody.style.fontWeight = "bold";
+    tbody.style.fontSize = "30px";
+    tbody.style.textAlign = "center";
+    tbody.style.lineHeight = "100px";
+    tbody.innerText = "Scoreboard is empty !!!";
+    scoreBoard.style.display = "block";
+  } else {
+    for (let i = 0; i < localStorage.length; i++) {
+      let data = JSON.parse(localStorage.getItem(`Round ${i + 1}`));
+      let tr = "<tr>";
+      tr +=
+        "<td> Round  " +
+        data.round +
+        "</td>" +
+        "<td> Moves  " +
+        data.moves +
+        "</td> <td> Time  (" +
+        data.time +
+        ")</td></tr>";
+      tbody.innerHTML += tr;
+    }
+    scoreBoard.style.display = "block";
   }
-  scoreBoard.style.display = "block";
 };
 
 // When the user clicks anywhere outside of the modal, close it

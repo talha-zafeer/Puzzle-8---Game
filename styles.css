@@ -83,11 +83,13 @@ main {
   transition: all 1.5s;
   border: 2px rgba(255, 255, 255, 0.4);
   cursor: pointer;
+  animation: fadeIn 1s ease;
 }
 
 .empty-cell {
   background-color: transparent;
   border: none;
+  animation: fadeIn 1s ease;
 }
 
 .cell:hover {
@@ -133,10 +135,26 @@ main {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
+.game-win-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  margin: auto 0;
+}
+.game-win-modal div {
+  /* background-color: salmon; */
+  max-width: 1000px;
+}
+.game-win-modal p {
+  line-height: 80px;
+}
 table {
   transition: all 1s;
   width: 100%;
+  border-radius: 9px;
+  opacity: 0.8;
 }
 /* Modal Content */
 .modal-content {
@@ -177,7 +195,9 @@ table {
 
 td,
 th {
-  border: 1px solid #dddddd;
+  border: 2px solid salmon;
+  /* border-bottom: 2px solid salmon; */
+  border-radius: 2px;
   text-align: left;
   padding: 8px;
 }
