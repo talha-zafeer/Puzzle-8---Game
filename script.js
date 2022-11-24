@@ -36,11 +36,8 @@ function init() {
   btnScore = document.getElementById("myBtn");
   gameWon = document.getElementById("gameWon");
 
-  for (let i = 0; i < 8 + 1; i++) {
+  for (let i = 0; i < 9; i++) {
     cells[i] = document.querySelector(`#cell-${i}`);
-  }
-
-  for (let i = 0; i < 8 + 1; i++) {
     cells[i].addEventListener("click", () => {
       moveCell(i, "");
     });
@@ -62,15 +59,13 @@ function init() {
 
 function getRandomArray() {
   const randomArray = [];
-  let random_number = Math.ceil(Math.random() * 8);
 
-  while (randomArray.length < 8) {
+  do {
+    const random_number = Math.ceil(Math.random() * 8);
     if (!randomArray.includes(random_number)) {
       randomArray.push(random_number);
-    } else {
-      random_number = Math.ceil(Math.random() * 8);
     }
-  }
+  } while (randomArray.length < 8);
 
   const random_index = Math.floor(Math.random() * (8 + 1));
   randomArray.splice(random_index, 0, "");
@@ -194,12 +189,12 @@ function moveCell(index, event) {
   if (check()) {
     setTimeout(() => {
       gameWon.style.display = "block";
+      saveData();
+      countRounds();
+      resetMoves();
+      resetTimer();
+      startGame();
     }, 100);
-    saveData();
-    countRounds();
-    resetMoves();
-    resetTimer();
-    startGame();
   }
 }
 
